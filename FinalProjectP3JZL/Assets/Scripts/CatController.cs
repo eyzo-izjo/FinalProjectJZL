@@ -37,7 +37,7 @@ public class CatController : MonoBehaviour
             isOnGround = false;
         }
 
-        //Have cat turn in cursor direction
+        
 
 
     }
