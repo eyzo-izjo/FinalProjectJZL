@@ -7,7 +7,12 @@ public class CatController : MonoBehaviour
     public float horzInput;
     public float vertInput;
     public float speed;
-    
+
+    public Transform orientation;
+    Vector3 moveDirection;
+
+
+
     public float jumpForce;
     public bool isOnGround;
     private Rigidbody rb;
@@ -16,18 +21,21 @@ public class CatController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Side movement
-        horzInput = Input.GetAxis("Horizontal");
+        horzInput = Input.GetAxisRaw("Horizontal");
+        vertInput = Input.GetAxisRaw("Vertical");
+        //Find direction
+        moveDirection = orientation.forward * vertInput + orientation.right * horzInput;
+       
         transform.Translate(Vector3.right * horzInput * Time.deltaTime * speed);
 
         //Forwrd movement
-        vertInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * vertInput * Time.deltaTime * speed);
 
         //If SPACE, jump and can't double 
@@ -37,7 +45,9 @@ public class CatController : MonoBehaviour
             isOnGround = false;
         }
 
-        
+
+      
+
 
 
     }
